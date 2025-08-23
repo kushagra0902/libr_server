@@ -50,8 +50,9 @@ server_router.get("/getboot", async (req, res) => {
 
 server_router.post("/postboot", authMiddleware, async (req, res) => {
   try {
+    console.log("Incoming body:", req.body);
     const { peer_id, node_id } = req.body;
-    await insert_nodes({ peer_id, node_id });
+    await insert_nodes({ peer_id, node_Id });
     res.status(200).json({ message: "ok" });
     console.log("successful injection of bootstrap id");
   } catch (error) {
