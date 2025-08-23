@@ -50,6 +50,7 @@ server_router.get("/getboot", async (req, res) => {
 
 server_router.post("/postboot", authMiddleware, async (req, res) => {
   try {
+    console.log("Incoming body:", req.body);
     const { peer_id, public_key } = req.body;
     await insert_nodes({ peer_id, public_key });
     res.status(200).json({ message: "ok" });
