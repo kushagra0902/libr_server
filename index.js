@@ -4,7 +4,7 @@ import { app } from "./src/app.js";
 import https from "https"
 dotenv.config();
 
-const db_name = "Addrs";  //change
+const db_name = "Test";  //change
 const db_uri = process.env.MONGO_URI;
 
 await connect_db(db_uri, db_name);
