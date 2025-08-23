@@ -1,14 +1,20 @@
-import {Nodes} from "../models/node.model.js"
+import { Nodes } from "../models/node.model.js";
 
 async function get_nodes() {
   return await Nodes.find({});
 }
 
-async function insert_nodes(relay_addr) {
-  await Nodes.create(relay_addr);
-  console.log("Relay inserted successfully");
-}
+async function insert_nodes({ peer_id, node_id }) {
+  const existingNode = await Nodes.findOne({ where: { node_id } });
 
+  if (existingNode) {
+    await existingNode.update({ peer_id });
+    console.log("Relay updated successfully");
+  } else {
+    await Nodes.create({ peer_id, node_id });
+    console.log("Relay inserted successfully");
+  }
+}
 
 async function delete_nodes(peerIdToDelete) {
   const result = await Nodes.deleteOne({ peer_id: peerIdToDelete });

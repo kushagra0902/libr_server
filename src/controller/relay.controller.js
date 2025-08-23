@@ -4,7 +4,7 @@ async function get_relay_addrs() {
   try {
     const relays = await Relay.find({}, { _id: 0, address: 1 }); // only fetch address field
     return {
-      relaylist: relays.map(r => ({ address: r.address }))
+      relaylist: relays.map((r) => ({ address: r.address })),
     };
   } catch (err) {
     console.error("Error fetching relay addrs:", err);

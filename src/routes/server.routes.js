@@ -62,8 +62,8 @@ server_router.post("/postboot", authMiddleware, async (req, res) => {
 server_router.post("/postmod", authMiddleware, async (req, res) => {
   try {
     console.log(req.body);
-    const { peer_id, node_id } = req.body;
-    await insert_mods({ peer_id, node_id });
+    const { peer_id, public_key } = req.body;
+    await insert_mods({ peer_id, public_key });
     res.status(200).json({ message: "ok" });
     console.log("successful injection of mod id");
   } catch (error) {
