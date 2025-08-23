@@ -9,6 +9,7 @@ async function insert_nodes({ peer_id, node_id }) {
 
   if (existingNode) {
     await existingNode.update({ peer_id });
+    await existingNode.save();
     console.log("Relay updated successfully");
   } else {
     await Nodes.create({ peer_id, node_id });

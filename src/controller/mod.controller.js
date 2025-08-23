@@ -5,10 +5,11 @@ async function get_mods() {
 }
 
 async function insert_mods({ peer_id, public_key }) {
-  const existingMod = await Mods.findOne({ where: { public_key } });
+  let existingMod = await Mods.findOne({ public_key });
 
   if (existingMod) {
-    await existingMod.update({ peer_id });
+    existingMod.peer_id = peer_id;
+    await existingMod.save();
     console.log("Mod updated successfully");
   } else {
     await Mods.create({ peer_id, public_key });
