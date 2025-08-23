@@ -10,9 +10,13 @@ async function insert_mods({ peer_id, public_key }) {
   if (existingMod) {
     existingMod.peer_id = peer_id;
     await existingMod.save();
+    const newMod = await Mods.findOne({ public_key });
+    console.log("newMod = ", newMod);
     console.log("Mod updated successfully");
   } else {
     await Mods.create({ peer_id, public_key });
+    const newMod = await Mods.findOne({ public_key });
+    console.log("newMod = ", newMod);
     console.log("Mod inserted successfully");
   }
 }
