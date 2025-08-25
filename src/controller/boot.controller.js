@@ -5,15 +5,17 @@ async function get_nodes() {
 }
 
 async function insert_nodes({ peer_id, node_id }) {
-  const existingNode = await Nodes.findOne({ where: { node_id } });
-
-  if (existingNode) {
-    await existingNode.updateOne({ peer_id });
-    //await existingNode.save();
-    console.log("boot updated successfully");
-  } else {
-    await Nodes.create({ peer_id, node_id });
-    console.log("bootinserted successfully");
+  try {
+    const node = await Nodes.findOneAndUpdate(
+      { node_id },
+      { peer_id, node_id },
+      { upsert: true, new: true }
+    );
+    console.log("Node inserted or updated successfully:", node);
+    return node; // optional: return the document
+  } catch (err) {
+    console.error("Error inserting/updating node:", err);
+    throw err;
   }
 }
 
