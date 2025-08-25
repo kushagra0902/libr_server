@@ -8,7 +8,7 @@ async function insert_nodes({ peer_id, node_id }) {
   const existingNode = await Nodes.findOne({ where: { node_id } });
 
   if (existingNode) {
-    await existingNode.update({ peer_id });
+    await existingNode.updateOne({ peer_id });
     //await existingNode.save();
     console.log("boot updated successfully");
   } else {
